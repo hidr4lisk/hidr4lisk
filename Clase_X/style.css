@@ -1,0 +1,9 @@
+.container {
+    background-color: gray;
+    text-align: center;
+    font-size: large;
+}
+.botones {
+    margin-top: 20px;
+    align-items: center;
+}
