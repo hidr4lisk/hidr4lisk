@@ -1,0 +1,60 @@
+Para desarrollar un sitio web en Python que administre información de expedientes, notas, vencimientos, fechas y otros datos relevantes, con usuarios y contraseñas, necesitarás herramientas y conocimientos en varios aspectos. A continuación te detallo los elementos clave:
+1. Backend (Lógica del servidor)
+
+    Python Framework:
+        Flask: Un micro-framework minimalista que te permite tener control sobre el proyecto.
+        Django: Un framework más completo que incluye muchas herramientas listas para usar (como la gestión de usuarios, formularios, bases de datos, etc.).
+    Base de datos: Necesitarás manejar datos y almacenamiento. Algunas opciones:
+        SQLite: Una base de datos ligera para pequeños proyectos (viene incluida en Django).
+        PostgreSQL/MySQL: Para manejar más datos o si el sitio crece en complejidad.
+    ORM (Object Relational Mapping):
+        SQLAlchemy: Si eliges Flask, SQLAlchemy es el ORM más común para interactuar con la base de datos de manera más eficiente.
+        Django ORM: Si usas Django, ya viene integrado con su propio ORM.
+
+2. Autenticación y gestión de usuarios
+
+    Flask-Login: Si usas Flask, este paquete facilita la implementación de autenticación de usuarios.
+    Django User Authentication: Django tiene un sistema de usuarios y contraseñas integrado muy robusto.
+    Cifrado de contraseñas: Herramientas como bcrypt o werkzeug.security (Flask) o las funciones integradas de Django para manejar de forma segura los datos de autenticación.
+
+3. Frontend (Interfaz de usuario)
+
+    HTML/CSS: Para crear el diseño del sitio.
+    JavaScript: Para hacer la experiencia más interactiva (validaciones de formularios, interactividad con la página sin necesidad de recargarla).
+    Bootstrap: Un framework CSS que facilita el diseño responsivo y rápido.
+
+4. Control de versiones y colaboración
+
+    Git: Para llevar el control de versiones de tu proyecto.
+    GitHub/GitLab: Para alojar tu código y colaborar con otros si es necesario.
+
+5. Deploy (Despliegue del sitio)
+
+    Heroku: Para desplegar tu aplicación de forma gratuita o con bajo costo, compatible con Python.
+    DigitalOcean/Vultr/AWS: Opciones más avanzadas si necesitas más control sobre el servidor.
+    Docker: Para crear contenedores que aseguren la portabilidad de tu aplicación y faciliten su despliegue en diferentes entornos.
+
+6. Manejo de sesiones y seguridad
+
+    CSRF Protection: Para evitar ataques de falsificación de solicitudes entre sitios.
+    HTTPS: Asegúrate de que la conexión esté cifrada usando certificados SSL.
+    Flask-WTF (Flask) o las herramientas de Django para manejar formularios de manera segura.
+
+7. Notificaciones y alertas
+
+    Para gestionar recordatorios de vencimientos, podrías usar algún servicio de notificaciones:
+        Email: Utilizando bibliotecas como smtplib o Flask-Mail/Django Mail.
+        Push Notifications: Dependiendo de las necesidades del sitio.
+
+8. Documentación y otros recursos
+
+    Markdown o Sphinx: Para documentar el código y las funcionalidades de la aplicación.
+
+Conocimientos necesarios:
+
+    Python: Lógica del backend.
+    HTML/CSS/JavaScript: Diseño e interactividad.
+    Bases de datos: Modelado y consultas.
+    Seguridad web: Autenticación, cifrado y protección contra vulnerabilidades.
+
+Si optas por Flask, tendrías más flexibilidad y simplicidad, pero si prefieres una estructura más guiada, Django es ideal para proyectos que manejan usuarios y bases de datos extensas.
