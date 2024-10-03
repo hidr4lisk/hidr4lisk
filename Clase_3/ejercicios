@@ -2,7 +2,8 @@
 
 A partir de una variable:
 
-tupla = (8, 15, 4, 39, 5, 89, 87, 19, 7, -755, 88, 123, 2, 11, 15, 9, 355)
+tupla = (8, 15, 4, 39, 5, 89, 87, 19, 7, -755, 88, 123
+, 2, 11, 15, 9, 355)
 
 Imprimir por pantalla de forma ordenada, lo siguiente:
 
