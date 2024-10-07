@@ -1,0 +1,18 @@
+/* Fondo negro para toda la página */
+body {
+    background-color: black;
+    color: white;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/5/52/Sombrero_blanco%2C_negro_y_gris.png');
+    background-size: cover; /* Ajusta la imagen para cubrir todo el fondo */
+    background-position: center; /* Centra la imagen */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    transition: background-size 1s ease; /* Transición suave para el cambio de tamaño */
+}
+
+/* Imagen centrada */
+img {
+    max-width: 100%;
+    height: auto;
+}
