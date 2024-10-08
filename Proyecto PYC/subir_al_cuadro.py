@@ -4,8 +4,11 @@ import pandas as pd
 import glob
 import os
 
+# Definir la ruta del directorio actual (donde está el archivo .py)
+current_directory = os.path.dirname(os.path.abspath(__file__))
+
 # Ruta al archivo JSON con las credenciales
-json_creds_path = r'C:\Users\Sinli\OneDrive\Documentos\py practice\Proyecto PYC\credenciales_google.json'
+json_creds_path = os.path.join(current_directory, 'credenciales_google.json')
 
 # Alcance de la API
 scopes = ['https://www.googleapis.com/auth/spreadsheets',
@@ -18,9 +21,6 @@ client = gspread.authorize(creds)
 # Abrir el Google Sheet por URL
 sheet = client.open_by_url('https://docs.google.com/spreadsheets/d/1rZQjkpv94q1hmRl0OiGlWpZ325B_newG5H0DmUUv264/edit?usp=sharing')
 worksheet = sheet.get_worksheet(2)  # 0=Emma 1=Pablo 2=Yo
-
-# Definir la ruta del directorio actual
-current_directory = r'C:\Users\Sinli\OneDrive\Documentos\py practice\Proyecto PYC'
 
 # Buscar archivos Excel en el directorio actual
 excel_files = glob.glob(os.path.join(current_directory, "*.xls")) + glob.glob(os.path.join(current_directory, "*.xlsx"))
