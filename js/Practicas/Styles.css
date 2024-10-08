@@ -1,18 +1,43 @@
-/* Fondo negro para toda la página */
 body {
-    background-color: black;
-    color: white;
-    text-align: center;
-    font-family: Arial, sans-serif;
-    background-image: url('https://upload.wikimedia.org/wikipedia/commons/5/52/Sombrero_blanco%2C_negro_y_gris.png');
-    background-size: cover; /* Ajusta la imagen para cubrir todo el fondo */
-    background-position: center; /* Centra la imagen */
-    background-repeat: no-repeat; /* Evita que la imagen se repita */
-    transition: background-size 1s ease; /* Transición suave para el cambio de tamaño */
+    margin: 0;
+    height: 100vh; /* Altura completa de la ventana */
+    display: flex;
+    flex-direction: column; /* Disposición en columna */
+    text-align: center; 
+    color: rgb(45, 235, 54); 
 }
 
-/* Imagen centrada */
-img {
-    max-width: 100%;
-    height: auto;
+.arriba {
+    border-color: rgb(45, 235, 54);
+    border-style: solid;
+    padding-right: 50%; 
+    flex: 1; /* 1/6 del total */
+    background-color: rgb(0, 0, 0); /* Color de fondo para visualización */
+}
+
+.medio {
+    flex: 8; /* 4/6 del total */
+    display: flex; /* Usar flexbox para el div medio */
+    background-color: rgb(0, 0, 0); /* Color de fondo para visualización */
+}
+
+.izquierda {
+    border-color: rgb(45, 235, 54);
+    border-style: solid;
+    flex: 2; /* 2 partes a la izquierda */
+    background-color: rgb(0, 0, 0); /* Color de fondo para visualización */
+}
+
+.derecha {
+    border-color: rgb(45, 235, 54);
+    border-style: solid;
+    flex: 1; /* 1 parte a la derecha */
+    background-color: rgb(0, 0, 0); /* Color de fondo para visualización */
+}
+
+.abajo {
+    border-color: rgb(45, 235, 54);
+    border-style: solid;
+    flex: 1; /* 1/6 del total */
+    background-color: rgb(107, 107, 107); /* Color de fondo para visualización */
 }
