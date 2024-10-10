@@ -1,0 +1,15 @@
+function convertirTodoAMayusculas() {
+  let hoja = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  let rango = hoja.getDataRange(); // Obtiene todas las celdas con datos
+  let valores = rango.getValues();
+ 
+  for (let i = 0; i < valores.length; i++) {
+	for (let j = 0; j < valores[i].length; j++) {
+  	if (typeof valores[i][j] === 'string') {
+    	valores[i][j] = valores[i][j].toUpperCase(); // Convierte a mayúsculas
+  	}
+	}
+  }
+ 
+  rango.setValues(valores); // Actualiza la hoja con los valores convertidos
+}
