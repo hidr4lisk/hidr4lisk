@@ -15,7 +15,8 @@ escenarios = {
             "decison_mala": "x",
             "consecuencia_buena": "x",
             "consecuencia_mala": "x"
-        },  # Nivel 2, acá cambia la cosa, si el valor de la barra es NEGATIVO, resta doble. si es Positivo suma doble. 
+        },  # Nivel 2, acá cambia la cosa, si el valor de la barra es NEGATIVO, resta doble. si es Positivo suma doble.
+#si la desición es del signo contrario al nivel, cambia a 1 o -1
                 {
             "descripcion": "x",
             "pregunta": "x",
@@ -24,6 +25,7 @@ escenarios = {
             "consecuencia_buena": "x",
             "consecuencia_mala": "x"
         },  # Nivel 3, y aca lo mismo que en nivel 2. Si el valor de la barra es NEGATIVO, resta triple. y si es positivo suma triple.
+#si la desición es del signo contrario al nivel, cambia a 1 o -
     ]
 }
 
