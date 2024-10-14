@@ -67,8 +67,6 @@ cantidadMuniecas = Number(prompt("Ingrese la cantidad de Muñecas del último pe
 pesoPaquete = (pesoPayaso*cantidadPayasos)+(pesoMunieca*cantidadMuniecas)
 console.log(`El paquete a enviar pesa: ${pesoPaquete} gramos.`)
 
-*/
-
 
 //10. Una panadería vende barras de pan a 3.49€ cada una. El pan que no es el día tiene un descuento del 60%. Escribir un programa que comience leyendo el número de barras vendidas que no son del día. Después el programa debe mostrar el precio habitual de una barra de pan, el descuento que se le hace por no ser fresca y el coste final total.
 
@@ -91,3 +89,6 @@ let precioFinal = precioSinDescuento - descuentoTotal;
 console.log("Precio habitual de una barra de pan: " + precioPorBarra.toFixed(2) + "€");
 console.log("Descuento aplicado por no ser fresca: " + (descuento * 100) + "%");
 console.log("Coste final total: " + precioFinal.toFixed(2) + "€");
+
+*/
+
