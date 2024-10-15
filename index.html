@@ -19,8 +19,8 @@
     </select>
     <br><br>
 
-    <label for="fileInput">Selecciona el archivo (TXT, DOCX):</label>
-    <input type="file" id="fileInput" accept=".txt, .docx">
+    <label for="fileInput">Selecciona el archivo (TXT, DOC, DOCX):</label>
+    <input type="file" id="fileInput" accept=".txt, .doc, .docx">
     <br><br>
 
     <button onclick="procesarArchivo()">Procesar</button>
@@ -62,7 +62,7 @@
             const reader = new FileReader();
 
             // Manejo de archivos DOCX
-            if (file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
+            if (file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' || file.type === 'application/msword') {
                 reader.onload = function(event) {
                     const arrayBuffer = event.target.result;
                     mammoth.extractRawText({arrayBuffer: arrayBuffer})
@@ -72,7 +72,7 @@
                         })
                         .catch(function(err) {
                             console.error(err);
-                            alert('Error al leer el archivo DOCX.');
+                            alert('Error al leer el archivo DOC/DOCX.');
                         });
                 };
                 reader.readAsArrayBuffer(file);
@@ -85,7 +85,7 @@
                 };
                 reader.readAsText(file);
             } else {
-                alert('Tipo de archivo no soportado. Usa TXT o DOCX.');
+                alert('Tipo de archivo no soportado. Usa TXT, DOC o DOCX.');
                 return;
             }
         }
@@ -113,7 +113,7 @@
 
         function crearArchivo(contenido, extension) {
             let blob;
-            if (extension === '.docx') {
+            if (extension === '.docx' || extension === '.doc') {
                 const zip = new JSZip();
                 zip.file("document.txt", contenido); // Agregar contenido al archivo zip
                 const doc = new window.Docxtemplater();
@@ -122,7 +122,7 @@
                     doc.render();
                 } catch (error) {
                     console.error(JSON.stringify({ error: error }, null, 2));
-                    alert('Error al generar el archivo DOCX.');
+                    alert('Error al generar el archivo DOC/DOCX.');
                     return;
                 }
                 blob = new Blob([doc.getZip().generate({ type: 'blob' })], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
