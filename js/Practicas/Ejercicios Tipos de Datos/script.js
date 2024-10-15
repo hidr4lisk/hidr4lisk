@@ -68,6 +68,8 @@ pesoPaquete = (pesoPayaso*cantidadPayasos)+(pesoMunieca*cantidadMuniecas)
 console.log(`El paquete a enviar pesa: ${pesoPaquete} gramos.`)
 
 
+
+
 //10. Una panadería vende barras de pan a 3.49€ cada una. El pan que no es el día tiene un descuento del 60%. Escribir un programa que comience leyendo el número de barras vendidas que no son del día. Después el programa debe mostrar el precio habitual de una barra de pan, el descuento que se le hace por no ser fresca y el coste final total.
 
 // Precio habitual de una barra de pan
@@ -92,3 +94,13 @@ console.log("Coste final total: " + precioFinal.toFixed(2) + "€");
 
 */
 
+//Solicite al usuario ingresar un número mediante prompt().
+//Verifique si el número es par o impar.
+//Muestre un mensaje en pantalla utilizando alert() indicando si el número ingresado es par o impar.
+
+let numero = Number(prompt("Ingrese un número :"))
+let paridad = numero % 2
+if (paridad === 0) {
+    alert("Es par");
+} else {
+    alert("Es impar") }
