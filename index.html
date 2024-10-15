@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cifrar/Descifrar Texto</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.2/mammoth.browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script> <!-- Agregar JSZip -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/docxtemplater/3.24.4/docxtemplater.min.js"></script> <!-- Agregar Docxtemplater -->
 </head>
 <body>
     <h1>Cifrado de Archivos de Texto</h1>
@@ -37,13 +40,13 @@
             return textoProcesado;
         }
 
-        function generarNombreAleatorio() {
+        function generarNombreAleatorio(extension) {
             const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
             let nombre = '';
             for (let i = 0; i < 10; i++) {
                 nombre += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
             }
-            return nombre + '.txt';
+            return nombre + extension;
         }
 
         function procesarArchivo() {
@@ -65,7 +68,7 @@
                     mammoth.extractRawText({arrayBuffer: arrayBuffer})
                         .then(function(result) {
                             const contenido = result.value; // Texto extraído
-                            procesarContenido(contenido, action);
+                            procesarContenido(contenido, action, '.docx'); // Generar archivo DOCX
                         })
                         .catch(function(err) {
                             console.error(err);
@@ -83,18 +86,18 @@
             else {
                 reader.onload = function(event) {
                     const contenido = event.target.result;
-                    procesarContenido(contenido, action);
+                    procesarContenido(contenido, action, '.txt'); // Generar archivo TXT
                 };
                 reader.readAsText(file);
             }
         }
 
-        function procesarContenido(contenido, action) {
+        function procesarContenido(contenido, action, extension) {
             if (action === '1') {  // Cifrar
                 const desplazamiento = Math.floor(Math.random() * 200) - 100; // Genera un número aleatorio entre -100 y 100
                 const resultadoTexto = desplazarCaracteres(contenido, desplazamiento, true) + String.fromCharCode(desplazamiento);
-                const nombreArchivoSalida = generarNombreAleatorio();
-                descargarArchivo(resultadoTexto, nombreArchivoSalida);
+
+                crearArchivo(resultadoTexto, extension); // Generar archivo de salida
             } else if (action === '2') {  // Descifrar
                 if (contenido.length === 0) {
                     alert('El archivo está vacío.');
@@ -105,16 +108,34 @@
                 const desplazamiento = contenido.charCodeAt(contenido.length - 1);
                 const textoSinDesplazamiento = contenido.slice(0, -1);
                 const resultadoTexto = desplazarCaracteres(textoSinDesplazamiento, desplazamiento, false);
-                const nombreArchivoSalida = generarNombreAleatorio();
-                descargarArchivo(resultadoTexto, nombreArchivoSalida);
+
+                crearArchivo(resultadoTexto, extension); // Generar archivo de salida
             }
         }
 
-        function descargarArchivo(contenido, nombreArchivo) {
-            const blob = new Blob([contenido], { type: 'text/plain' });
+        function crearArchivo(contenido, extension) {
+            let blob;
+            if (extension === '.docx') {
+                const doc = new window.Docxtemplater();
+                const zip = new JSZip();
+                zip.file("text.txt", contenido); // Agregar contenido al archivo zip
+                doc.loadZip(zip);
+                try {
+                    doc.render();
+                } catch (error) {
+                    console.error(JSON.stringify({ error: error }, null, 2));
+                    alert('Error al generar el archivo DOCX.');
+                    return;
+                }
+                blob = new Blob([doc.getZip().generate({ type: 'blob' })], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+            } else if (extension === '.txt') {
+                blob = new Blob([contenido], { type: 'text/plain' });
+            }
+
+            const nombreArchivoSalida = generarNombreAleatorio(extension);
             const enlaceDescarga = document.createElement('a');
             enlaceDescarga.href = URL.createObjectURL(blob);
-            enlaceDescarga.download = nombreArchivo;
+            enlaceDescarga.download = nombreArchivoSalida;
             document.body.appendChild(enlaceDescarga);
             enlaceDescarga.click();
             document.body.removeChild(enlaceDescarga);
