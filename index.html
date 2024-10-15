@@ -6,8 +6,8 @@
     <title>Cifrar/Descifrar Texto</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.2/mammoth.browser.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script> <!-- Agregar JSZip -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/docxtemplater/3.24.4/docxtemplater.min.js"></script> <!-- Agregar Docxtemplater -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/docxtemplater/3.24.4/docxtemplater.min.js"></script>
 </head>
 <body>
     <h1>Cifrado de Archivos de Texto</h1>
@@ -19,8 +19,8 @@
     </select>
     <br><br>
 
-    <label for="fileInput">Selecciona el archivo (TXT, DOC, DOCX):</label>
-    <input type="file" id="fileInput" accept=".txt, .doc, .docx">
+    <label for="fileInput">Selecciona el archivo (TXT, DOCX):</label>
+    <input type="file" id="fileInput" accept=".txt, .docx">
     <br><br>
 
     <button onclick="procesarArchivo()">Procesar</button>
@@ -77,18 +77,16 @@
                 };
                 reader.readAsArrayBuffer(file);
             } 
-            // Manejo de archivos DOC (puedes agregar soporte similar aquí)
-            else if (file.type === 'application/msword') {
-                alert('El soporte para archivos DOC no está implementado. Por favor, usa DOCX o TXT.');
-                return;
-            }
             // Manejo de archivos TXT
-            else {
+            else if (file.type === 'text/plain') {
                 reader.onload = function(event) {
                     const contenido = event.target.result;
                     procesarContenido(contenido, action, '.txt'); // Generar archivo TXT
                 };
                 reader.readAsText(file);
+            } else {
+                alert('Tipo de archivo no soportado. Usa TXT o DOCX.');
+                return;
             }
         }
 
@@ -116,9 +114,9 @@
         function crearArchivo(contenido, extension) {
             let blob;
             if (extension === '.docx') {
-                const doc = new window.Docxtemplater();
                 const zip = new JSZip();
-                zip.file("text.txt", contenido); // Agregar contenido al archivo zip
+                zip.file("document.txt", contenido); // Agregar contenido al archivo zip
+                const doc = new window.Docxtemplater();
                 doc.loadZip(zip);
                 try {
                     doc.render();
