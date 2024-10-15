@@ -38,15 +38,6 @@
             return textoProcesado;
         }
 
-        function generarNombreAleatorio() {
-            const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-            let nombre = '';
-            for (let i = 0; i < 10; i++) {
-                nombre += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
-            }
-            return nombre + '.txt';
-        }
-
         function procesarArchivo() {
             const fileInput = document.getElementById('fileInput');
             const action = document.getElementById('action').value;
@@ -64,21 +55,22 @@
                 
                 if (action === '1') {  // Cifrar
                     const desplazamiento = Math.floor(Math.random() * 200) - 100; // Genera un número aleatorio entre -100 y 100
-                    const resultadoTexto = desplazarCaracteres(contenido, desplazamiento, true) + String.fromCharCode(desplazamiento);
-                    const nombreArchivoSalida = generarNombreAleatorio();
+                    const resultadoTexto = desplazarCaracteres(contenido, desplazamiento, true);
+                    const nombreArchivoSalida = `Readm3 (${desplazamiento}).txt`;
                     descargarArchivo(resultadoTexto, nombreArchivoSalida);
                 } else if (action === '2') {  // Descifrar
-                    if (contenido.length === 0) {
-                        alert('El archivo está vacío.');
+                    const nombreArchivo = file.name;
+                    const regex = /Readm3 \((\-?\d+)\)\.txt/;
+                    const coincidencia = nombreArchivo.match(regex);
+                    
+                    if (!coincidencia) {
+                        alert("El nombre del archivo no tiene el formato adecuado. Debe ser 'Readm3 (X).txt', donde X es el desplazamiento.");
                         return;
                     }
 
-                    // Extraer el último carácter para obtener el desplazamiento
-                    const desplazamiento = contenido.charCodeAt(contenido.length - 1);
-                    const textoSinDesplazamiento = contenido.slice(0, -1);
-                    const resultadoTexto = desplazarCaracteres(textoSinDesplazamiento, desplazamiento, false);
-                    const nombreArchivoSalida = generarNombreAleatorio();
-                    descargarArchivo(resultadoTexto, nombreArchivoSalida);
+                    const desplazamiento = parseInt(coincidencia[1]);
+                    const resultadoTexto = desplazarCaracteres(contenido, desplazamiento, false);
+                    descargarArchivo(resultadoTexto, 'm3Read.txt');
                 }
             };
 
