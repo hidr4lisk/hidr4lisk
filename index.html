@@ -29,7 +29,7 @@
                 let caracter = texto[i];
                 let desplazamiento;
 
-                // Cifrar todos los caracteres incluyendo números y espacios
+                // Cifrar todos los caracteres incluyendo espacios, números y letras
                 desplazamiento = (caracter.charCodeAt(0) + (cifrar ? x : -x)) % 256; // 256 para cubrir todos los caracteres ASCII
                 if (desplazamiento < 0) desplazamiento += 256; // Asegurarse de que no sea negativo
                 textoProcesado += String.fromCharCode(desplazamiento);
