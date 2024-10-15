@@ -27,7 +27,10 @@
             let textoProcesado = '';
             for (let i = 0; i < texto.length; i++) {
                 let caracter = texto[i];
-                let desplazamiento = (caracter.charCodeAt(0) + (cifrar ? x : -x)) % 256; // 256 para cubrir todos los caracteres ASCII
+                let desplazamiento;
+
+                // Cifrar todos los caracteres incluyendo números y espacios
+                desplazamiento = (caracter.charCodeAt(0) + (cifrar ? x : -x)) % 256; // 256 para cubrir todos los caracteres ASCII
                 if (desplazamiento < 0) desplazamiento += 256; // Asegurarse de que no sea negativo
                 textoProcesado += String.fromCharCode(desplazamiento);
             }
