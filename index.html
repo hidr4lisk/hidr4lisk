@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cifrar/Descifrar Texto</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.2/mammoth.browser.min.js"></script>
 </head>
 <body>
     <h1>Cifrado de Archivos de Texto</h1>
@@ -15,8 +16,8 @@
     </select>
     <br><br>
 
-    <label for="fileInput">Selecciona el archivo de texto:</label>
-    <input type="file" id="fileInput" accept=".txt">
+    <label for="fileInput">Selecciona el archivo (TXT, DOC, DOCX):</label>
+    <input type="file" id="fileInput" accept=".txt, .doc, .docx">
     <br><br>
 
     <button onclick="procesarArchivo()">Procesar</button>
@@ -26,14 +27,9 @@
             let textoProcesado = '';
             for (let i = 0; i < texto.length; i++) {
                 let caracter = texto[i];
-                if (/[a-zA-Z]/.test(caracter)) {
-                    let base = caracter === caracter.toUpperCase() ? 65 : 97;
-                    let desplazamiento = (caracter.charCodeAt(0) - base + (cifrar ? x : -x)) % 26;
-                    if (desplazamiento < 0) desplazamiento += 26;
-                    textoProcesado += String.fromCharCode(base + desplazamiento);
-                } else {
-                    textoProcesado += caracter;
-                }
+                let desplazamiento = (caracter.charCodeAt(0) + (cifrar ? x : -x)) % 256; // 256 para cubrir todos los caracteres ASCII
+                if (desplazamiento < 0) desplazamiento += 256; // Asegurarse de que no sea negativo
+                textoProcesado += String.fromCharCode(desplazamiento);
             }
             return textoProcesado;
         }
@@ -59,30 +55,56 @@
             const file = fileInput.files[0];
             const reader = new FileReader();
 
-            reader.onload = function(event) {
-                const contenido = event.target.result;
-                
-                if (action === '1') {  // Cifrar
-                    const desplazamiento = Math.floor(Math.random() * 200) - 100; // Genera un número aleatorio entre -100 y 100
-                    const resultadoTexto = desplazarCaracteres(contenido, desplazamiento, true) + String.fromCharCode(desplazamiento);
-                    const nombreArchivoSalida = generarNombreAleatorio();
-                    descargarArchivo(resultadoTexto, nombreArchivoSalida);
-                } else if (action === '2') {  // Descifrar
-                    if (contenido.length === 0) {
-                        alert('El archivo está vacío.');
-                        return;
-                    }
+            // Manejo de archivos DOCX
+            if (file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
+                reader.onload = function(event) {
+                    const arrayBuffer = event.target.result;
+                    mammoth.extractRawText({arrayBuffer: arrayBuffer})
+                        .then(function(result) {
+                            const contenido = result.value; // Texto extraído
+                            procesarContenido(contenido, action);
+                        })
+                        .catch(function(err) {
+                            console.error(err);
+                            alert('Error al leer el archivo DOCX.');
+                        });
+                };
+                reader.readAsArrayBuffer(file);
+            } 
+            // Manejo de archivos DOC (puedes agregar soporte similar aquí)
+            else if (file.type === 'application/msword') {
+                alert('El soporte para archivos DOC no está implementado. Por favor, usa DOCX o TXT.');
+                return;
+            }
+            // Manejo de archivos TXT
+            else {
+                reader.onload = function(event) {
+                    const contenido = event.target.result;
+                    procesarContenido(contenido, action);
+                };
+                reader.readAsText(file);
+            }
+        }
 
-                    // Extraer el último carácter para obtener el desplazamiento
-                    const desplazamiento = contenido.charCodeAt(contenido.length - 1);
-                    const textoSinDesplazamiento = contenido.slice(0, -1);
-                    const resultadoTexto = desplazarCaracteres(textoSinDesplazamiento, desplazamiento, false);
-                    const nombreArchivoSalida = generarNombreAleatorio();
-                    descargarArchivo(resultadoTexto, nombreArchivoSalida);
+        function procesarContenido(contenido, action) {
+            if (action === '1') {  // Cifrar
+                const desplazamiento = Math.floor(Math.random() * 200) - 100; // Genera un número aleatorio entre -100 y 100
+                const resultadoTexto = desplazarCaracteres(contenido, desplazamiento, true) + String.fromCharCode(desplazamiento);
+                const nombreArchivoSalida = generarNombreAleatorio();
+                descargarArchivo(resultadoTexto, nombreArchivoSalida);
+            } else if (action === '2') {  // Descifrar
+                if (contenido.length === 0) {
+                    alert('El archivo está vacío.');
+                    return;
                 }
-            };
 
-            reader.readAsText(file);
+                // Extraer el último carácter para obtener el desplazamiento
+                const desplazamiento = contenido.charCodeAt(contenido.length - 1);
+                const textoSinDesplazamiento = contenido.slice(0, -1);
+                const resultadoTexto = desplazarCaracteres(textoSinDesplazamiento, desplazamiento, false);
+                const nombreArchivoSalida = generarNombreAleatorio();
+                descargarArchivo(resultadoTexto, nombreArchivoSalida);
+            }
         }
 
         function descargarArchivo(contenido, nombreArchivo) {
