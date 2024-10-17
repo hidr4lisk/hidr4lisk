@@ -103,4 +103,4 @@ let paridad = numero % 2
 if (paridad === 0) {
     alert("Es par");
 } else {
-    alert("Es impar") }
+    alert("Es impar") } 

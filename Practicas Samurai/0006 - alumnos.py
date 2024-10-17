@@ -5,6 +5,13 @@ genero = 3
 grupo_a_mujer = ["a","b","c","d","e","f","g","h","i","j","k","l"]
 grupo_a_hombre = ["ñ","o","p","q","r","s","t","u","v","w","x","y","z"]
 
-while True:
-    try:
-        nombre = input("Ingrese el nombre: ")
+nombre = input("Ingrese el nombre: ")
+genero = input("Ingrese Genero, <H> hombre o <M> mujer: ")
+
+
+
+
+if (genero.upper() == "M" and nombre[0].lower() in grupo_a_mujer) or (genero.upper() == "H" and nombre[0].lower() in grupo_a_hombre):
+    print(f"{nombre} esta en el brupo A")
+else:
+    print(f"{nombre} esta en el grupo B")
