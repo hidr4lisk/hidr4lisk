@@ -11,9 +11,9 @@ INFO_2 = "gordon lanzó su curva&strawberry ha fallado por un pie! -gritó Joe C
 original = "gordon lanzó su curva&strawberry ha fallado por un pie! -gritó Joe Castiglione&dos pies -le corrigió Troop&strawberry menea la cabeza como disgustado… -agrega el comentarista&Mike Jhonson se acerca a alentar a su compañero"
 
 lista_frases = original.lower().split("&")
-nombres = ["gordon","strawberry","joe","castiglione","troop","mike","jhonson"]
+nombres = ["gordon", "strawberry", "joe", "castiglione", "troop", "mike", "jhonson"]
 
 for frase in lista_frases:
     for i in nombres:
-        frase.replace(i, i.capitalize())
+        frase = frase.replace(i, i.capitalize())
     print(frase)
