@@ -100,25 +100,30 @@ function leerManual(bomba){
 }
 function desarmarBomba(bomba){
     alert("Así que tenemos un valiente, ya no se puede volver atrás espero que hayas leído el manual.\n")
-    let cables = [0,0,0]
+    let cables = []
     let cortarCable
-    for(let i=0;i<3;i++){        
+    let cableDisponible = ["rojo", "verde", "azul"]
+    let cableCortado = []
+    for(let i = 0; i < 3; i++) {
         while (true) {
-            cortarCable = prompt("¿Qué cable cortamos primero?\n¿rojo, verde o azul?").toLowerCase()
+            cortarCable = prompt("¿Qué cable cortamos?\n¿"+cableDisponible+"?").toLowerCase()
             if (cortarCable === "rojo" || cortarCable === "verde" || cortarCable === "azul") {
-                cables[i]=cortarCable
-            break
+                if (cortarCable !== bomba[i]) {
+                    alert("¡¡¡¡¡ BOOOOOOOOOM !!!!!")
+                    return
+                }
+                cableCortado.push(cortarCable)
+                cableDisponible.splice(cableDisponible.indexOf(cortarCable), 1)
+                cables.push(cortarCable)
+                break
             } else {
-                alert("Por favor, ingrese 'rojo', 'verde' o 'azul'.")
+                alert("Por favor, elija entre los cables disponibles: "+ cableDisponible+ ".")
             }
         }
     }
-    if (sonIguales(bomba, cables)) {
-        alert("¡ LO LOGRASTE, SALVASTE EL DÍA !")
-    } else {
-        alert("¡¡¡¡¡ BOOOOOOOOOM !!!!!")
-    }
+    alert("¡ LO LOGRASTE, SALVASTE EL DÍA !")
 }
+
 
 function sonIguales(array1, array2) {
     if (array1.length !== array2.length) {
