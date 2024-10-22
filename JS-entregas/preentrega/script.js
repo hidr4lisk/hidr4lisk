@@ -32,51 +32,64 @@ function randomizar() {
 
 function configurarBomba(configuracionBomba) {
     let bombaElegida
-    if (configuracionBomba === 0) {
-        bombaElegida = ["rojo", "verde", "azul"]
-    } else if (configuracionBomba === 1) {
-        bombaElegida = ["verde", "azul", "rojo"]
-    } else if (configuracionBomba === 2) {
-        bombaElegida = ["azul", "rojo", "verde"]
-    } else {
-        bombaElegida = ["verde", "rojo", "azul"]
+    switch (configuracionBomba) {
+        case 0:
+            bombaElegida = ["rojo", "verde", "azul"]
+            break
+        case 1:
+            bombaElegida = ["verde", "azul", "rojo"]
+            break
+        case 2:
+            bombaElegida = ["azul", "rojo", "verde"]
+            break
+        default:
+            bombaElegida = ["verde", "rojo", "azul"]
+            break
     }
     return bombaElegida
 }
 
 function configurarEscenario(configuracionEscenario) {
-    if (configuracionEscenario === 0) {
-        return (
-            "Jefe del Operativo:-\n\n" +
-            "Los niños y docentes están en el gimnasio encerrados y la bomba está instalada de forma que bloquea la única salida.\n" +
-            "No hay nadie mejor para este trabajo, estamos en tus manos."
-        )
-    } else if (configuracionEscenario === 1) {
-        return (
-            "Jefe del Operativo:-\n\n" +
-            "Tenemos un 1070 en proceso, qué agradable volver a verte.\n" +
-            "No podrían haber enviado a nadie mejor, la bomba está en el primer piso del hospital.\n" +
-            "En el área de terapia intensiva, no es por meterte presión, pero creo que si explota...\n\n" +
-            "Se va a venir todo abajo.\n\n\n Suerte, capo"
-        )
-    } else if (configuracionEscenario === 2) {
-        return (
-            "Jefe del Operativo:-\n\n" +
-            "Está en el centro de convenciones, pudimos evacuar a la mayoría de la gente, pero...\n\n" +
-            "En los pisos superiores quedaron atrapadas unas monjas que estaban en una despedida de soltera. Tememos que la explosión comprometa los cimientos.\n\n" +
-            "Como siempre, estamos en tus manos, héroe."
-        )
-    } else {
-        return (
-            "Jefe del Operativo:-\n\n" +
-            "Al fin, qué bueno verte por acá.\n" +
-            "La bomba está bajo el escenario, uno de los encargados de mantenimiento la encontró mientras instalaban los equipos de sonido.\n" +
-            "Que los míticos AC/DC toquen hoy depende pura y exclusivamente de vos.\n" +
-            "Bueno, eso y las vidas de los inocentes que están en el estadio. No podemos esperar que terminen la evacuación.\n" +
-            "Hay que actuar ahora. Suerte, muchacho, la vas a necesitar. Yo me voy a la mierda."
-        )
+    let escenarioElegido
+    switch (configuracionEscenario) {
+        case 0:
+            escenarioElegido = (
+                "Jefe del Operativo:-\n\n" +
+                "Los niños y docentes están en el gimnasio encerrados y la bomba está instalada de forma que bloquea la única salida.\n" +
+                "No hay nadie mejor para este trabajo, estamos en tus manos."
+            )
+            break
+        case 1:
+            escenarioElegido = (
+                "Jefe del Operativo:-\n\n" +
+                "Tenemos un 1070 en proceso, qué agradable volver a verte.\n" +
+                "No podrían haber enviado a nadie mejor, la bomba está en el primer piso del hospital.\n" +
+                "En el área de terapia intensiva, no es por meterte presión, pero creo que si explota...\n\n" +
+                "Se va a venir todo abajo.\n\n\n Suerte, capo"
+            )
+            break
+        case 2:
+            escenarioElegido = (
+                "Jefe del Operativo:-\n\n" +
+                "Está en el centro de convenciones, pudimos evacuar a la mayoría de la gente, pero...\n\n" +
+                "En los pisos superiores quedaron atrapadas unas monjas que estaban en una despedida de soltera. Tememos que la explosión comprometa los cimientos.\n\n" +
+                "Como siempre, estamos en tus manos, héroe."
+            )
+            break
+        default:
+            escenarioElegido = (
+                "Jefe del Operativo:-\n\n" +
+                "Al fin, qué bueno verte por acá.\n" +
+                "La bomba está bajo el escenario, uno de los encargados de mantenimiento la encontró mientras instalaban los equipos de sonido.\n" +
+                "Que los míticos AC/DC toquen hoy depende pura y exclusivamente de vos.\n" +
+                "Bueno, eso y las vidas de los inocentes que están en el estadio. No podemos esperar que terminen la evacuación.\n" +
+                "Hay que actuar ahora. Suerte, muchacho, la vas a necesitar. Yo me voy a la mierda."
+            )
+            break
     }
+    return escenarioElegido
 }
+
 
 function mirarBomba(bomba){
     alert("Con mucho cuidado y delicadeza retiras la tapa de la bomba.\n"+
@@ -98,31 +111,45 @@ function leerManual(bomba){
     alert("Y con eso salvas el día.")
     
 }
-function desarmarBomba(bomba){
+function desarmarBomba(bomba) {
     alert("Así que tenemos un valiente, ya no se puede volver atrás espero que hayas leído el manual.\n")
     let cables = []
     let cortarCable
     let cableDisponible = ["rojo", "verde", "azul"]
-    let cableCortado = []
-    for(let i = 0; i < 3; i++) {
-        while (true) {
-            cortarCable = prompt("¿Qué cable cortamos?\n¿"+cableDisponible+"?").toLowerCase()
-            if (cortarCable === "rojo" || cortarCable === "verde" || cortarCable === "azul") {
-                if (cortarCable !== bomba[i]) {
-                    alert("¡¡¡¡¡ BOOOOOOOOOM !!!!!")
-                    return
+       
+    for (let i = 0; i < 3; i++) {
+        if (i === 2) {
+            while (true) {
+                cortarCable = prompt("Y ahora el gran final, cortemos el último cable color " + cableDisponible[0] + " ?").toLowerCase()
+                if (cortarCable === cableDisponible[0]) {
+                    cables.push(cortarCable)
+                    cableDisponible.splice(cableDisponible.indexOf(cortarCable), 1)
+                    break
+                } else {
+                    alert("Por favor, corta el cable " + cableDisponible[0] + " correctamente.")
                 }
-                cableCortado.push(cortarCable)
-                cableDisponible.splice(cableDisponible.indexOf(cortarCable), 1)
-                cables.push(cortarCable)
-                break
-            } else {
-                alert("Por favor, elija entre los cables disponibles: "+ cableDisponible+ ".")
+            }
+        } else {
+            while (true) {
+                cortarCable = prompt("¿Qué cable cortamos?\n¿" + cableDisponible + "?").toLowerCase()
+                if (cortarCable === "rojo" || cortarCable === "verde" || cortarCable === "azul") {
+                    cables.push(cortarCable)
+                    cableDisponible.splice(cableDisponible.indexOf(cortarCable), 1)
+                    break
+                } else {
+                    alert("Por favor, ingrese 'rojo', 'verde' o 'azul'.")
+                }
             }
         }
     }
-    alert("¡ LO LOGRASTE, SALVASTE EL DÍA !")
+    
+    if (sonIguales(bomba, cables)) {
+        alert("¡ LO LOGRASTE, SALVASTE EL DÍA !")
+    } else {
+        alert("¡¡¡¡¡ BOOOOOOOOOM !!!!!")
+    }
 }
+
 
 
 function sonIguales(array1, array2) {
