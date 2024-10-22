@@ -90,40 +90,39 @@ function configurarEscenario(configuracionEscenario) {
     return escenarioElegido
 }
 
-
-function mirarBomba(bomba){
-    alert("Con mucho cuidado y delicadeza retiras la tapa de la bomba.\n"+
-        "Entonces observas que el Detonante esta conectado a la Carga explosiva con un cable "+
-        bomba[0]+
-        " y el Contador esta conectado al Detonante con un cable "+
-        bomba[1]+
-        ".\nA su vez un cable "+
-        bomba[2]+
+function mirarBomba(bomba) {
+    alert("Con mucho cuidado y delicadeza retiras la tapa de la bomba.\n" +
+        "Entonces observas que el Detonante está conectado a la Carga explosiva con un cable " +
+        bomba[0] +
+        " y el Contador está conectado al Detonante con un cable " +
+        bomba[1] + 
+        ".\nA su vez un cable " + 
+        bomba[2] + 
         " conecta la Carga explosiva al Contador."
     )
 }
-function leerManual(bomba){
+
+function leerManual(bomba) {
     alert("Podría armar un menú con diferentes tipos de bombas en esta sección y que tengas que leer aburrida información innecesaria pero esto es un prototipo así que te voy a simplificar las cosas.")
-    alert("este es el orden para cortar: ")
-    for(let i = 0 ; i<3 ; i++){
-        alert("Corta "+bomba[i])
+    alert("Este es el orden para cortar: ")
+    for (let i = 0; i < 3; i++) {
+        alert("Corta " + bomba[i])
     }
     alert("Y con eso salvas el día.")
-    
 }
+
 function desarmarBomba(bomba) {
     alert("Así que tenemos un valiente, ya no se puede volver atrás espero que hayas leído el manual.\n")
     let cables = []
     let cortarCable
     let cableDisponible = ["rojo", "verde", "azul"]
-       
+
     for (let i = 0; i < 3; i++) {
-        if (i === 2) {
+        if (cableDisponible.length === 1) {
             while (true) {
-                cortarCable = prompt("Y ahora el gran final, cortemos el último cable color " + cableDisponible[0] + " ?").toLowerCase()
+                cortarCable = prompt("Y ahora, corta el cable color " + cableDisponible[0] + "?").toLowerCase()
                 if (cortarCable === cableDisponible[0]) {
                     cables.push(cortarCable)
-                    cableDisponible.splice(cableDisponible.indexOf(cortarCable), 1)
                     break
                 } else {
                     alert("Por favor, corta el cable " + cableDisponible[0] + " correctamente.")
@@ -131,26 +130,24 @@ function desarmarBomba(bomba) {
             }
         } else {
             while (true) {
-                cortarCable = prompt("¿Qué cable cortamos?\n¿" + cableDisponible + "?").toLowerCase()
-                if (cortarCable === "rojo" || cortarCable === "verde" || cortarCable === "azul") {
+                cortarCable = prompt("¿Qué cable cortamos?\n¿" + cableDisponible.join(", ") + "?").toLowerCase()
+                if (cableDisponible.includes(cortarCable)) {
                     cables.push(cortarCable)
                     cableDisponible.splice(cableDisponible.indexOf(cortarCable), 1)
                     break
                 } else {
-                    alert("Por favor, ingrese 'rojo', 'verde' o 'azul'.")
+                    alert("Por favor, ingrese uno de los cables disponibles: " + cableDisponible.join(", ") + ".")
                 }
             }
         }
     }
-    
+
     if (sonIguales(bomba, cables)) {
         alert("¡ LO LOGRASTE, SALVASTE EL DÍA !")
     } else {
         alert("¡¡¡¡¡ BOOOOOOOOOM !!!!!")
     }
 }
-
-
 
 function sonIguales(array1, array2) {
     if (array1.length !== array2.length) {
@@ -172,9 +169,9 @@ while (true) {
     let eleccion = mostrarMenuPrincipal()
     if (eleccion === "1") {
         mirarBomba(bombaMortal)
-    } else if (eleccion === "2"){
+    } else if (eleccion === "2") {
         leerManual(bombaMortal)
-    } else if (eleccion === "3"){
+    } else if (eleccion === "3") {
         desarmarBomba(bombaMortal)
         break
     } else {
