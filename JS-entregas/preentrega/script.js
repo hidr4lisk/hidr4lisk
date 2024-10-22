@@ -92,7 +92,7 @@ function mirarBomba(bomba){
 function leerManual(bomba){
     alert("Podría armar un menú con diferentes tipos de bombas en esta sección y que tengas que leer aburrida información innecesaria pero esto es un prototipo así que te voy a simplificar las cosas.")
     alert("este es el orden para cortar: ")
-    for(i = 0 ; i<3 ; i++){
+    for(let i = 0 ; i<3 ; i++){
         alert("Corta "+bomba[i])
     }
     alert("Y con eso salvas el día.")
@@ -100,24 +100,36 @@ function leerManual(bomba){
 }
 function desarmarBomba(bomba){
     alert("Así que tenemos un valiente, ya no se puede volver atrás espero que hayas leído el manual.\n")
-    cables = [0,0,0]
+    let cables = [0,0,0]
     let cortarCable
-    for(i=0;i<3;i++){        
+    for(let i=0;i<3;i++){        
         while (true) {
             cortarCable = prompt("¿Qué cable cortamos primero?\n¿rojo, verde o azul?").toLowerCase()
             if (cortarCable === "rojo" || cortarCable === "verde" || cortarCable === "azul") {
+                cables[i]=cortarCable
             break
             } else {
                 alert("Por favor, ingrese 'rojo', 'verde' o 'azul'.")
             }
         }
-        if (cortarCable === bomba[i]){
-            alert("Vas por buen camino, seguí así.")
-        } else {
-            alert("¡¡¡¡¡ BOOOOOOOOOM !!!!!")
-            break
+    }
+    if (sonIguales(bomba, cables)) {
+        alert("¡ LO LOGRASTE, SALVASTE EL DÍA !")
+    } else {
+        alert("¡¡¡¡¡ BOOOOOOOOOM !!!!!")
+    }
+}
+
+function sonIguales(array1, array2) {
+    if (array1.length !== array2.length) {
+        return false
+    }
+    for (let i = 0; i < array1.length; i++) {
+        if (array1[i] !== array2[i]) {
+            return false
         }
     }
+    return true
 }
 
 inicioJuego()
