@@ -11,3 +11,4 @@ i = 0
 for hobbi_fav in favoritos:
     i+= 1
     archivo.write(f"Hobbie {i}: {hobbi_fav}\n")    
+archivo.close()
